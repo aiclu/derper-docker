@@ -8,7 +8,7 @@ on:
     - cron: '0 0 * * MON'
 jobs:
   build:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
