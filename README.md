@@ -1,15 +1,15 @@
 # Derper
 
-[![docker workflow](https://github.com/fredliang44/derper-docker/actions/workflows/docker-image.yml/badge.svg)](https://hub.docker.com/r/fredliang/derper)
-[![docker pulls](https://img.shields.io/docker/pulls/fredliang/derper.svg?color=brightgreen)](https://hub.docker.com/r/fredliang/derper)
-[![platfrom](https://img.shields.io/badge/platform-amd64%20%7C%20arm64-brightgreen)](https://hub.docker.com/r/fredliang/derper/tags)
+[![docker workflow](https://github.com/aiclu/derper-docker/actions/workflows/docker-image.yml/badge.svg)](https://hub.docker.com/r/aiclu/derper)
+[![docker pulls](https://img.shields.io/docker/pulls/aiclu/derper.svg?color=brightgreen)](https://hub.docker.com/r/aiclu/derper)
+[![platfrom](https://img.shields.io/badge/platform-amd64%20%7C%20arm64-brightgreen)](https://hub.docker.com/r/aiclu/derper/tags)
 
 # Setup
 
 > required: set env `DERP_DOMAIN` to your domain
 
 ```bash
-docker run -e DERP_DOMAIN=derper.your-domain.com -p 80:80 -p 443:443 -p 3478:3478/udp fredliang/derper
+docker run -e DERP_DOMAIN=derper.your-domain.com -p 80:80 -p 443:443 -p 3478:3478/udp aiclu/derper
 ```
 
 | env                    | required | description                                                                 | default value     |
