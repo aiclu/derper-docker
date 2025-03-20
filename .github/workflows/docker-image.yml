@@ -66,9 +66,9 @@ jobs:
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-            fredliang/derper:${{ env.TAILSCALE_VERSION }}
-            fredliang/derper:latest
-            fredliang/derper:${{ github.sha }}
+            aiclu/derper:${{ env.TAILSCALE_VERSION }}
+            aiclu/derper:latest
+            aiclu/derper:${{ github.sha }}
             ghcr.io/${{ github.actor }}/derper:${{ env.TAILSCALE_VERSION }}
             ghcr.io/${{ github.actor }}/derper:latest
           build-args: |
