@@ -12,6 +12,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils && \
     apt-get install -y ca-certificates && \
+    apt-get install -y tzdata && \
     mkdir /app/certs
 
 ENV DERP_DOMAIN your-hostname.com
@@ -23,6 +24,7 @@ ENV DERP_STUN_PORT 3478
 ENV DERP_HTTP_PORT 80
 ENV DERP_VERIFY_CLIENTS false
 ENV DERP_VERIFY_CLIENT_URL ""
+ENV TZ=Asia/Shanghai
 
 COPY --from=builder /go/bin/derper .
 
