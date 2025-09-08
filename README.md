@@ -26,7 +26,7 @@ docker run -e DERP_DOMAIN=derper.your-domain.com -p 80:80 -p 443:443 -p 3478:347
 
 # Usage
 
-Fully DERP setup offical documentation: https://tailscale.com/kb/1118/custom-derp-servers/
+Fully DERP  setup offical documentation: https://tailscale.com/kb/1118/custom-derp-servers/
 
 ## Client verification
 
