@@ -7,7 +7,7 @@ ARG DERP_VERSION=latest
 RUN go install tailscale.com/cmd/derper@${DERP_VERSION}
 
 # 运行阶段
-FROM alpine:3.21
+FROM alpine:3.22
 WORKDIR /app
 
 RUN apk add --no-cache ca-certificates tzdata && \
