@@ -1,16 +1,20 @@
 FROM golang:latest AS builder
 WORKDIR /app
 
+# 启用Go模块
+ENV CGO_ENABLED=0 \
+    GOOS=linux
+
 ARG DERP_VERSION=latest
-RUN go install tailscale.com/cmd/derper@${DERP_VERSION}
+# 编译静态链接的二进制文件，并剥离调试符号减小体积
+RUN go build -ldflags="-w -s" -o derper tailscale.com/cmd/derper@${DERP_VERSION}
 
 # FROM ubuntu
 FROM alpine:latest
 WORKDIR /app
 
 RUN apk add --no-cache ca-certificates && \
-    mkdir /app/certs && \ 
-    mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
+    mkdir /app/certs
 
 ENV DERP_DOMAIN your-hostname.com
 ENV DERP_CERT_MODE letsencrypt
