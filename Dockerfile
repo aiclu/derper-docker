@@ -7,14 +7,15 @@ RUN go install tailscale.com/cmd/derper@${DERP_VERSION}
 FROM debian:bookworm-slim
 WORKDIR /app
 
+# 设置非交互式环境
+ARG DEBIAN_FRONTEND=noninteractive
+
 # 安装依赖并清理
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         tzdata && \
-    mkdir -p /app/certs && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    mkdir -p /app/certs
 
 # 环境变量
 ENV DERP_DOMAIN=your-hostname.com \
@@ -28,17 +29,14 @@ ENV DERP_DOMAIN=your-hostname.com \
     DERP_VERIFY_CLIENT_URL="" \
     TZ=Asia/Shanghai
 
-COPY --from=builder /go/bin/derper /app/derper
+COPY --from=builder /go/bin/derper .
 
-# 启动命令
-ENTRYPOINT ["/app/derper"]
-CMD ["--hostname=${DERP_DOMAIN}", \
-     "--certmode=${DERP_CERT_MODE}", \
-     "--certdir=${DERP_CERT_DIR}", \
-     "--a=${DERP_ADDR}", \
-     "--stun=${DERP_STUN}", \
-     "--stun-port=${DERP_STUN_PORT}", \
-     "--http-port=${DERP_HTTP_PORT}", \
-     "--verify-clients=${DERP_VERIFY_CLIENTS}", \
-     "--verify-client-url=${DERP_VERIFY_CLIENT_URL}"]
-
+CMD /app/derper --hostname=$DERP_DOMAIN \
+    --certmode=$DERP_CERT_MODE \
+    --certdir=$DERP_CERT_DIR \
+    --a=$DERP_ADDR \
+    --stun=$DERP_STUN  \
+    --stun-port=$DERP_STUN_PORT \
+    --http-port=$DERP_HTTP_PORT \
+    --verify-clients=$DERP_VERIFY_CLIENTS \
+    --verify-client-url=$DERP_VERIFY_CLIENT_URL
