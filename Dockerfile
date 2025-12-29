@@ -9,7 +9,8 @@ FROM alpine:latest
 WORKDIR /app
 
 RUN apk add --no-cache ca-certificates && \
-    mkdir /app/certs
+    mkdir /app/certs && \ 
+    mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 
 ENV DERP_DOMAIN your-hostname.com
 ENV DERP_CERT_MODE letsencrypt
