@@ -1,20 +1,16 @@
 FROM golang:latest AS builder
 
+# 启用Go模块
+ENV CGO_ENABLED=0 GOOS=linux
+
 ARG DERP_VERSION=latest
 RUN go install tailscale.com/cmd/derper@${DERP_VERSION}
 
 # 运行阶段
-FROM debian:bookworm-slim
+FROM alpine:3.21
 WORKDIR /app
 
-# 设置非交互式环境
-ARG DEBIAN_FRONTEND=noninteractive
-
-# 安装依赖并清理
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ca-certificates \
-        tzdata && \
+RUN apk add --no-cache ca-certificates tzdata && \
     mkdir -p /app/certs
 
 # 环境变量
