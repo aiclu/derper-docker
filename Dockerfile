@@ -4,7 +4,8 @@ WORKDIR /app
 ARG DERP_VERSION=latest
 RUN go install tailscale.com/cmd/derper@${DERP_VERSION}
 
-FROM ubuntu
+# FROM ubuntu
+FROM alpine:latest
 WORKDIR /app
 
 ARG DEBIAN_FRONTEND=noninteractive
