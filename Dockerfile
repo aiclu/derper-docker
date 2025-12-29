@@ -1,15 +1,13 @@
 FROM golang:latest AS builder
-WORKDIR /app
 
 # 启用Go模块
-ENV CGO_ENABLED=0 \
-    GOOS=linux
+ENV CGO_ENABLED=0
+ENV GOOS=linux
 
 ARG DERP_VERSION=latest
-# 编译静态链接的二进制文件，并剥离调试符号减小体积
-RUN go build -ldflags="-w -s" -o derper tailscale.com/cmd/derper@${DERP_VERSION}
+RUN go install tailscale.com/cmd/derper@${DERP_VERSION}
 
-# FROM ubuntu
+# 运行阶段
 FROM alpine:latest
 WORKDIR /app
 
