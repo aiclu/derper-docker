@@ -41,11 +41,9 @@ jobs:
 
       - name: Check if the image exists
         run: |
-          GHCR_TOKEN=$(echo ${{ secrets.GITHUB_TOKEN }} | base64)
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "Authorization: Bearer $GHCR_TOKEN" \
-            https://ghcr.io/v2/${{ github.repository }}/manifests/${{ env.TAILSCALE_VERSION }}
-            )
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://ghcr.io/v2/${{ github.repository }}/manifests/${{ env.TAILSCALE_VERSION }}")
           IMAGE_EXISTS=$(if [ $HTTP_CODE -eq 200 ]; then echo "true"; else echo "false"; fi)
           echo "HTTP code: $HTTP_CODE, Image exists: $IMAGE_EXISTS"
           echo IMAGE_EXISTS=$IMAGE_EXISTS >> $GITHUB_ENV
